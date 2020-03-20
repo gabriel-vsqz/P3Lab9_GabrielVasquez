@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <fstream>
+#include <iostream>
 
 using namespace std;
 
@@ -9,7 +11,26 @@ class Partida {
         string nombre, pieza;
         vector<string> movimientos;
     public:
-        Partida() {}
-        void guardarPartida(string, string, vector<string>);
-        
+        Partida(string n, string p, vector<string> m) {
+            nombre = n;
+            pieza = p;
+            movimientos = m;
+        }
+        void guardarPartida();
 };
+
+void Partida :: guardarPartida() {
+    ofstream bitacora("bitacoraPartidas.txt", ios::app);
+    if(!bitacora) {
+        cerr << "No se pudo abrir el archivo" << endl;
+        exit(EXIT_FAILURE);
+    } else {
+        bitacora << nombre << "\n" << pieza << "\n";
+        for (size_t i = 0; i < movimientos.size(); i++) {
+            bitacora << movimientos[i];
+            if (i < movimientos.size() - 2)
+                bitacora << ";";
+        }
+        bitacora << "\n------------------------------------------------------------";
+    }
+}
