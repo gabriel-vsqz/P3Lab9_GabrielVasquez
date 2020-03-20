@@ -28,7 +28,7 @@ void Partida :: guardarPartida() {
         bitacora << nombre << "\n" << pieza << "\n";
         for (size_t i = 0; i < movimientos.size(); i++) {
             bitacora << movimientos[i];
-            if (i < movimientos.size() - 2)
+            if (i < movimientos.size() - 1)
                 bitacora << ";";
         }
         bitacora << "\n------------------------------------------------------------";
