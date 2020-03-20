@@ -10,14 +10,14 @@
 #include "Peon.hpp"
 #include "Partida.hpp"
 
-#define a 0
+/* #define a 0
 #define b 1
 #define c 2
 #define d 3
 #define e 4
 #define f 5
 #define g 6
-#define h 7
+#define h 7 */
 
 using namespace std;
 
@@ -125,11 +125,84 @@ void crearPiezas() {
     }
 }
 
+int obtenerNumeros(char posicion) {
+    int numero;
+    switch (posicion) {
+        case 'a':
+        case '8':
+            numero = 0;
+            break;
+        case 'b':
+        case '7':
+            numero = 1;
+            break;
+        case 'c':
+        case '6':
+            numero = 2;
+            break;
+        case 'd':
+        case '5':
+            numero = 3;
+            break;
+        case 'e':
+        case '4':
+            numero = 4;
+            break;
+        case 'f':
+        case '3':
+            numero = 5;
+            break;
+        case 'g':
+        case '2':
+            numero = 6;
+            break;
+        case 'h':
+        case '1':
+            numero = 7;
+            break;
+        default:
+            numero = -1;
+    }
+    return numero;
+}
+
 void JugadaA(string m) {
+    int x1 = obtenerNumeros(m[1]), x2 = obtenerNumeros(m[4]), y1 = obtenerNumeros(m[2]), y2 = obtenerNumeros(m[5]);
+    if (tablero[y1][x1] == "[ ]") {
+        cout << "No hay nada en la posición que eligió. Turno perdido.\n";
+    } else {
+        if (tablero[y1][x1] == "[K]") {
+            if(white.validarMovimineto(y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                tablero[y1][x1] = "[ ]";
+                tablero[y2][x2] = "[K]";
+            } else {
+                cout << "Movimiento inválido\n";
+            }
+        } else {
+            
+        }
+    }
+    dibujarTablero();
+    cout << endl;
 }
 
 void JugadaB(string m) {
+    int x1 = obtenerNumeros(m[1]), x2 = obtenerNumeros(m[4]), y1 = obtenerNumeros(m[2]), y2 = obtenerNumeros(m[5]);
+    if (tablero[y1][x1] == "[ ]") {
+        cout << "No hay nada en la posición que eligió. Turno perdido.\n";
+    } else {
+        if (tablero[y1][x1] == "[k]") {
+            if(black.validarMovimineto(y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                tablero[y1][x1] = "[ ]";
+                tablero[y2][x2] = "[k]";
+            } else {
+                cout << "Movimiento inválido.\n";
+            }
+        } else {
 
+        }
+    }
+    dibujarTablero();
 }
 
 void comenzarPartida(string n) {
@@ -141,12 +214,20 @@ void comenzarPartida(string n) {
     while (resp == 's' || resp == 'S') {
         cout << "Jugador 1 - Su movida: ";
         cin >> move1;
-        JugadaA(move1);
-        movimientos.push_back(move1);
+        if (move1.length() != 7) {
+            cout << "Turno Perdido\n";
+        } else {
+            JugadaA(move1);
+            movimientos.push_back(move1);
+        }
         cout << "Jugador 2 - Su movida: ";
         cin >> move2;
-        JugadaB(move2);
-        movimientos.push_back(move2);
+        if (move2.length() != 7) {
+            cout << "Turno Perdido\n";
+        } else {
+            JugadaB(move2);
+            movimientos.push_back(move2);
+        }
 
         cout << "¿Desea continuar [S/N]: ";
         cin >> resp; 
@@ -166,9 +247,14 @@ int main() {
             case 1: {
                 string nombre;
                 cout << "\nIngrese el nombre de la partida: ";
-                cin >> nombre;
+                getline(cin, nombre);
+                getline(cin, nombre);
                 cout << "¿Con qué pieza desea jugar?\n1. Reina\n2. Torre\n3. Alfil\n4. Caballo\n5. Peón\n: ";
                 cin >> pieza;
+                while (pieza < 1 || pieza > 5) {
+                    cout << "Debe elegir entre las opciones presentadas.\n1. Reina\n2. Torre\n3. Alfil\n4. Caballo\n5. Peón\n: ";
+                    cin >> pieza;
+                }
                 llenarTablero(pieza);
                 cout << "\n---------- " << nombre << " ----------\n";
                 dibujarTablero();
