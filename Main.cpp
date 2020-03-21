@@ -10,23 +10,12 @@
 #include "Peon.hpp"
 #include "Partida.hpp"
 
-/* #define a 0
-#define b 1
-#define c 2
-#define d 3
-#define e 4
-#define f 5
-#define g 6
-#define h 7 */
-
 using namespace std;
 
 string tablero[8][8];
 int pieza;
 Rey white;
 Rey black;
-Pieza wplayer;
-Pieza bplayer;
 
 void llenarTablero(int pieza) {
     for (int i = 0; i < 8; i++) {
@@ -95,36 +84,6 @@ string definirPieza() {
     return piece;
 }
 
-void crearPiezas() {
-    switch (pieza) {
-        case 1: {
-            Reina wqueen, bqueen;
-            wplayer = wqueen;
-            bplayer = bqueen;
-        } break;
-        case 2: {
-            Torre wrook, brook;
-            wplayer = wrook;
-            bplayer = brook;
-        } break;
-        case 3: {
-            Alfil wbishop, bbishop;
-            wplayer = wbishop;
-            bplayer = bbishop;
-        } break;
-        case 4: {
-            Caballo wknight, bknight;
-            wplayer = wknight;
-            bplayer = bknight;
-        }
-        case 5: {
-            Peon wpawn, bpawn;
-            wplayer = wpawn;
-            bplayer = bpawn;
-        }
-    }
-}
-
 int obtenerNumeros(char posicion) {
     int numero;
     switch (posicion) {
@@ -172,14 +131,62 @@ void JugadaA(string m) {
         cout << "No hay nada en la posición que eligió. Turno perdido.\n";
     } else {
         if (tablero[y1][x1] == "[K]") {
-            if(white.validarMovimineto(y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+            if(white.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
                 tablero[y1][x1] = "[ ]";
                 tablero[y2][x2] = "[K]";
             } else {
                 cout << "Movimiento inválido\n";
             }
         } else {
+            if (tablero[y1][x1] == "[Q]") {
+                Reina wqueen;
+                if(wqueen.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                    tablero[y1][x1] = "[ ]";
+                    tablero[y2][x2] = "[Q]";
+                } else {
+                    cout << "Movimiento inválido\n";
+                }
+            }
             
+            else if (tablero[y1][x1] == "[R]") {
+                Torre wrook;
+                if(wrook.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                    tablero[y1][x1] = "[ ]";
+                    tablero[y2][x2] = "[R]";
+                } else {
+                    cout << "Movimiento inválido\n";
+                }
+            }
+            
+            else if (tablero[y1][x1] == "[B]") {
+                Alfil wbishop;
+                if(wbishop.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                    tablero[y1][x1] = "[ ]";
+                    tablero[y2][x2] = "[B]";
+                } else {
+                    cout << "Movimiento inválido\n";
+                }
+            }
+            
+            else if (tablero[y1][x1] == "[H]") {
+                Caballo wknight;
+                if(wknight.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                    tablero[y1][x1] = "[ ]";
+                    tablero[y2][x2] = "[H]";
+                } else {
+                    cout << "Movimiento inválido\n";
+                }
+            }
+            
+            else if (tablero[y1][x1] == "[P]") {
+                Peon wpawn;
+                if(wpawn.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                    tablero[y1][x1] = "[ ]";
+                    tablero[y2][x2] = "[P]";
+                } else {
+                    cout << "Movimiento inválido\n";
+                }
+            }
         }
     }
     dibujarTablero();
@@ -192,30 +199,79 @@ void JugadaB(string m) {
         cout << "No hay nada en la posición que eligió. Turno perdido.\n";
     } else {
         if (tablero[y1][x1] == "[k]") {
-            if(black.validarMovimineto(y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+            if(black.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
                 tablero[y1][x1] = "[ ]";
                 tablero[y2][x2] = "[k]";
             } else {
-                cout << "Movimiento inválido.\n";
+                cout << "Movimiento inválido\n";
             }
         } else {
-
+            if (tablero[y1][x1] == "[q]") {
+                Reina bqueen;
+                if(bqueen.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                    tablero[y1][x1] = "[ ]";
+                    tablero[y2][x2] = "[q]";
+                } else {
+                    cout << "Movimiento inválido\n";
+                }
+            }
+            
+            else if (tablero[y1][x1] == "[r]") {
+                Torre brook;
+                if(brook.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                    tablero[y1][x1] = "[ ]";
+                    tablero[y2][x2] = "[r]";
+                } else {
+                    cout << "Movimiento inválido\n";
+                }
+            }
+            
+            else if (tablero[y1][x1] == "[b]") {
+                Alfil bbishop;
+                if(bbishop.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                    tablero[y1][x1] = "[ ]";
+                    tablero[y2][x2] = "[b]";
+                } else {
+                    cout << "Movimiento inválido\n";
+                }
+            }
+            
+            else if (tablero[y1][x1] == "[h]") {
+                Caballo bknight;
+                if(bknight.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                    tablero[y1][x1] = "[ ]";
+                    tablero[y2][x2] = "[h]";
+                } else {
+                    cout << "Movimiento inválido\n";
+                }
+            }
+            
+            else if (tablero[y1][x1] == "[p]") {
+                Peon bpawn;
+                if(bpawn.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
+                    tablero[y1][x1] = "[ ]";
+                    tablero[y2][x2] = "[p]";
+                } else {
+                    cout << "Movimiento inválido\n";
+                }
+            }
         }
     }
     dibujarTablero();
+    cout << endl;
 }
 
 void comenzarPartida(string n) {
-    crearPiezas();
     vector<string> movimientos;
     char resp = 's';
     string move1, move2;
-    cout << "\nLos movimientos se declararan de la siguiente manera: (origen, destino). Ex. (a1,a5).\n";
+    cout << "\nLos movimientos se declararán de la siguiente manera: (origen, destino). Ex. (a1,a5).\n\n";
     while (resp == 's' || resp == 'S') {
         cout << "Jugador 1 - Su movida: ";
         cin >> move1;
         if (move1.length() != 7) {
             cout << "Turno Perdido\n";
+            movimientos.push_back("LOST TURN");
         } else {
             JugadaA(move1);
             movimientos.push_back(move1);
@@ -224,13 +280,15 @@ void comenzarPartida(string n) {
         cin >> move2;
         if (move2.length() != 7) {
             cout << "Turno Perdido\n";
+            movimientos.push_back("LOST TURN");
         } else {
             JugadaB(move2);
             movimientos.push_back(move2);
         }
 
-        cout << "¿Desea continuar [S/N]: ";
-        cin >> resp; 
+        cout << "\n¿Desea continuar [S/N]: ";
+        cin >> resp;
+        cout << endl;
     }
     Partida nueva(n, definirPieza(), movimientos);
     nueva.guardarPartida();
@@ -256,6 +314,8 @@ int main() {
                     cin >> pieza;
                 }
                 llenarTablero(pieza);
+                cout << "\nLas piezas se representan de la siguiente manera: Rey - R, Reina - Q, Torre - R, Alfil - B, Caballo - H, Peon - P.\n";
+                cout << "Mayúsculas para las piezas negras y minúsculas para las piezas blancas.\n";
                 cout << "\n---------- " << nombre << " ----------\n";
                 dibujarTablero();
                 comenzarPartida(nombre);
