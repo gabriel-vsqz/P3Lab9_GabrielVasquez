@@ -274,7 +274,7 @@ void comenzarPartida(string n) {
         cin >> move1;
         if (move1.length() != 7) {
             cout << "Turno Perdido\n";
-            movimientos.push_back("LOST TURN");
+            movimientos.push_back("LOST_TURN");
         } else {
             JugadaA(move1);
             movimientos.push_back(move1);
@@ -283,7 +283,7 @@ void comenzarPartida(string n) {
         cin >> move2;
         if (move2.length() != 7) {
             cout << "Turno Perdido\n";
-            movimientos.push_back("LOST TURN");
+            movimientos.push_back("LOST_TURN");
         } else {
             JugadaB(move2);
             movimientos.push_back(move2);
@@ -304,11 +304,9 @@ void listarPartidas() {
         cerr << "No se pudo abrir el archivo, probablemente no has jugado :P\n\n";
         exit(1);
     }
-    int cont = -1;
     string nombre, piece;
     vector<string> movimientos;
     while(bitacora >> nombre >> piece) {
-        cout << "#" << ++cont << "\n";
         cout << nombre << endl << piece << endl;
         for (int i = 0; i < movimientos.size(); i++) {
             cout << movimientos[i];
@@ -351,10 +349,7 @@ int main() {
                 int pos;
                 cout << "¿Qué partida desea recrear?: ";
                 cin >> pos;
-                for (size_t i = 0; i < moves.size(); i++) {
-                    /* code */
-                }
-                
+                cout << "As far as I got :(" << endl;
             } break;
 
             case 3 : {
