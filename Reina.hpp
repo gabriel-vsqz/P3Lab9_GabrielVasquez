@@ -18,6 +18,8 @@ bool Reina :: validarMovimineto(int origen_y, int origen_x, int destino_y, int d
         return true;
     } else if ( (destino_x >= 0 && destino_x <= 7)  && destino_y == origen_y ) {
         return true;
+    } else if (  ) {
+        return true;
     }
     else {
         return false;

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
+#include <iomanip>
 #include "Pieza.hpp"
 #include "Rey.hpp"
 #include "Reina.hpp"
@@ -179,7 +181,7 @@ void JugadaA(string m) {
             }
             
             else if (tablero[y1][x1] == "[P]") {
-                Peon wpawn;
+                Peon wpawn("white");
                 if(wpawn.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
                     tablero[y1][x1] = "[ ]";
                     tablero[y2][x2] = "[P]";
@@ -247,7 +249,7 @@ void JugadaB(string m) {
             }
             
             else if (tablero[y1][x1] == "[p]") {
-                Peon bpawn;
+                Peon bpawn("black");
                 if(bpawn.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
                     tablero[y1][x1] = "[ ]";
                     tablero[y2][x2] = "[p]";
@@ -294,6 +296,25 @@ void comenzarPartida(string n) {
     nueva.guardarPartida();
 }
 
+void listarPartidas() {
+    cout << "\n---------- Lista de Partidas ----------\n";
+    ifstream bitacora("bitacoraPartidas.txt", ios::in);
+    if(!bitacora) {
+        cerr << "No se pudo abrir el archivo" << endl;
+        exit(EXIT_FAILURE);
+    }
+    string nombre, piece;
+    vector<string> movimientos;
+    while(bitacora >> nombre >> piece) {
+        cout << nombre << endl << piece << endl;
+        for (int i = 0; i < movimientos.size(); i++) {
+            cout << movimientos[i];
+        }
+        
+    }
+    cout << endl;
+}
+
 int main() {
     cout << "\n----- AJEDREZ -----\n";
     bool pass = true;
@@ -322,7 +343,7 @@ int main() {
             } break;
             
             case 2: {
-
+                listarPartidas();
             } break;
 
             case 3 : {

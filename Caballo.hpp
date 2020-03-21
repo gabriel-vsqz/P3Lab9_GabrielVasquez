@@ -22,8 +22,7 @@ bool Caballo :: validarMovimineto(int origen_y, int origen_x, int destino_y, int
         return true;
     } else if ( (destino_y == origen_y + 2) && (destino_x = origen_x + 1) ) {
         return true;
-    }//NKABDFALSB 
-    else if ( (destino_x == origen_x + 2) && (destino_y = origen_y + 1) ) {
+    } else if ( (destino_x == origen_x + 2) && (destino_y = origen_y + 1) ) {
         return true;
     } else if ( (destino_x == origen_x + 2) && (destino_y = origen_y - 1) ) {
         return true;
@@ -31,8 +30,7 @@ bool Caballo :: validarMovimineto(int origen_y, int origen_x, int destino_y, int
         return true;
     } else if ( (destino_x == origen_x + 2) && (destino_y = origen_y + 1) ) {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
