@@ -161,7 +161,7 @@ void JugadaA(string m) {
             }
             
             else if (tablero[y1][x1] == "[B]") {
-                Alfil wbishop;
+                Alfil wbishop("white");
                 if(wbishop.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
                     tablero[y1][x1] = "[ ]";
                     tablero[y2][x2] = "[B]";
@@ -229,7 +229,7 @@ void JugadaB(string m) {
             }
             
             else if (tablero[y1][x1] == "[b]") {
-                Alfil bbishop;
+                Alfil bbishop("black");
                 if(bbishop.validarMovimineto(y1, x1, y2, x2, tablero) && tablero[y2][x2] == "[ ]") {
                     tablero[y1][x1] = "[ ]";
                     tablero[y2][x2] = "[b]";
@@ -297,7 +297,7 @@ void comenzarPartida(string n) {
 }
 
 void listarPartidas() {
-    cout << "\n---------- Lista de Partidas ----------\n";
+    cout << "\n------------------------- Lista de Partidas -------------------------\n";
     ifstream bitacora("bitacoraPartidas.txt", ios::in);
     if(!bitacora) {
         cerr << "No se pudo abrir el archivo" << endl;
