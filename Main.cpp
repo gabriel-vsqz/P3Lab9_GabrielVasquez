@@ -18,6 +18,7 @@ string tablero[8][8];
 int pieza;
 Rey white;
 Rey black;
+vector<string> moves;
 
 void llenarTablero(int pieza) {
     for (int i = 0; i < 8; i++) {
@@ -300,15 +301,18 @@ void listarPartidas() {
     cout << "\n------------------------- Lista de Partidas -------------------------\n";
     ifstream bitacora("bitacoraPartidas.txt", ios::in);
     if(!bitacora) {
-        cerr << "No se pudo abrir el archivo" << endl;
-        exit(EXIT_FAILURE);
+        cerr << "No se pudo abrir el archivo, probablemente no has jugado :P\n\n";
+        exit(1);
     }
+    int cont = -1;
     string nombre, piece;
     vector<string> movimientos;
     while(bitacora >> nombre >> piece) {
+        cout << "#" << ++cont << "\n";
         cout << nombre << endl << piece << endl;
         for (int i = 0; i < movimientos.size(); i++) {
             cout << movimientos[i];
+            moves.push_back(movimientos[i]);
         }
         
     }
@@ -344,6 +348,13 @@ int main() {
             
             case 2: {
                 listarPartidas();
+                int pos;
+                cout << "¿Qué partida desea recrear?: ";
+                cin >> pos;
+                for (size_t i = 0; i < moves.size(); i++) {
+                    /* code */
+                }
+                
             } break;
 
             case 3 : {
